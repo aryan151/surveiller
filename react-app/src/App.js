@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
@@ -10,16 +10,44 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import Splash from './components/splash/splash'
 import Home from './components/Home/home' 
-function App() {
-  const [loaded, setLoaded] = useState(false);
+import Navigation from './components/Navigation/navigation';    
+
+function App() { 
+  const sessionUser = useSelector((state) => state.session.user); 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async() => {
-      await dispatch(authenticate());
-      setLoaded(true);
-    })();
-  }, [dispatch]);
+  const [loaded, setLoaded] = useState(false); 
+  const [showSidebar, setShowSidebar] = useState(); 
+
+	const toggleSidebar = () => {
+		setShowSidebar(!showSidebar);
+		localStorage.setItem('sidebar', !showSidebar)
+	}
+
+
+
+
+
+	useEffect(() => {
+		(async () => {
+			await dispatch(authenticate());
+			if (!localStorage.getItem("sidebar")) {
+				localStorage.setItem("sidebar", true);
+				setShowSidebar(true);
+			} else {
+				if (localStorage.getItem("sidebar") === 'false'){
+					setShowSidebar(false);
+				} else {
+					setShowSidebar(true);
+				}
+			}
+
+				setLoaded(true);
+
+
+		})();
+	}, [dispatch]);
+ 
 
   if (!loaded) {
     return null;
@@ -27,20 +55,49 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
+
       <Switch>				
         <Route path="/" exact={true}>
+          <NavBar />
           <Splash/> 
 				</Route>
         <Route path='/login' exact={true}>  
           <LoginForm />
         </Route>
-        <Route path='/sign-up' exact={true}>
+        <Route path='/sign-up' exact={true}>  
           <SignUpForm />
         </Route>
+
+				<ProtectedRoute path="/toDo" exact={true}> 
+					<div className="asanawrapper">
+						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
+						{/* <MainContent show={showSidebar} toggle={toggleSidebar} page="toDo" /> */} 
+					</div>
+				</ProtectedRoute>
+				<ProtectedRoute path="/workers" exact={true}>
+					<div className="asanawrapper">
+						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
+						{/* <MainContent show={showSidebar} toggle={toggleSidebar} page="workers" /> */}  
+					</div>
+				</ProtectedRoute>
+        <ProtectedRoute path="/inventory" exact={true}>
+					<div className="asanawrapper">
+						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
+						{/* <MainContent show={showSidebar} toggle={toggleSidebar} page="inventory" /> */} 
+					</div>
+				</ProtectedRoute>
+        <ProtectedRoute path="/projects/:projectId" exact={true}>   
+					<div className="asanawrapper">
+						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
+						{/* <MainContent show={showSidebar} toggle={toggleSidebar} page="project" /> */}   
+					</div>
+				</ProtectedRoute>
+
         <ProtectedRoute path='/home' exact={true} >  
-          <Home/>
+          <Home/> 
         </ProtectedRoute>
+
+
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
