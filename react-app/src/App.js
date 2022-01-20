@@ -8,10 +8,9 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
-import Splash from './components/splash/splash'
-import Home from './components/Home/home' 
+import Splash from './components/splash/splash' 
 import Navigation from './components/Navigation/navigation';    
-
+import MainContent from "./components/Maincontent/main";
 function App() { 
   const sessionUser = useSelector((state) => state.session.user); 
   const dispatch = useDispatch();
@@ -68,34 +67,36 @@ function App() {
           <SignUpForm />
         </Route>
 
+				<ProtectedRoute path="/home" exact={true}>  
+					<div className="asanawrapper">
+						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
+						<MainContent show={showSidebar} toggle={toggleSidebar} page="home" />       
+					</div>
+				</ProtectedRoute>
 				<ProtectedRoute path="/toDo" exact={true}> 
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						{/* <MainContent show={showSidebar} toggle={toggleSidebar} page="toDo" /> */} 
+						<MainContent show={showSidebar} toggle={toggleSidebar} page="toDo" />     
 					</div>
 				</ProtectedRoute>
 				<ProtectedRoute path="/workers" exact={true}>
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						{/* <MainContent show={showSidebar} toggle={toggleSidebar} page="workers" /> */}  
+						<MainContent show={showSidebar} toggle={toggleSidebar} page="workers" />  
 					</div>
 				</ProtectedRoute>
         <ProtectedRoute path="/inventory" exact={true}>
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						{/* <MainContent show={showSidebar} toggle={toggleSidebar} page="inventory" /> */} 
+						<MainContent show={showSidebar} toggle={toggleSidebar} page="inventory" /> 
 					</div>
 				</ProtectedRoute>
         <ProtectedRoute path="/projects/:projectId" exact={true}>   
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						{/* <MainContent show={showSidebar} toggle={toggleSidebar} page="project" /> */}   
+						<MainContent show={showSidebar} toggle={toggleSidebar} page="project" />   
 					</div>
-				</ProtectedRoute>
-
-        <ProtectedRoute path='/home' exact={true} >  
-          <Home/> 
-        </ProtectedRoute>
+				</ProtectedRoute>   
 
 
         <ProtectedRoute path='/users' exact={true} >
