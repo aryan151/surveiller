@@ -1,0 +1,5 @@
+.mainBackground{
+    background-size: cover;
+    background-color: lightgrey;
+    transition: background-image 200ms ease-in-out;
+}
