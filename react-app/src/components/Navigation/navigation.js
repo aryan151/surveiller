@@ -5,7 +5,12 @@ import LogoutButton from "../auth/LogoutButton";
 import { MdMenuOpen } from "react-icons/md";
 import { FaSquare, FaPlus } from "react-icons/fa"; 
 import { SiAsana } from "react-icons/si";   
-import { MdHome} from "react-icons/md";  
+import { RiHome6Line } from "react-icons/ri";
+import { MdOutlineChecklist } from "react-icons/md";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { MdCases } from "react-icons/md";
+
+
 import './sidebar.css' 
 
 function Navigation ({show, toggle}) { 
@@ -22,23 +27,23 @@ function Navigation ({show, toggle}) {
 			<div className="sidebar-links-section">
 				<NavLink to="/home" exact={true} activeClassName="sidebar-active">
 					<div id="sidebar-link">
-						<MdHome size="1.5em" /> <span id="sidebar-link-text">Home</span>
+						<RiHome6Line size="1.5em" /> <span id="sidebar-link-text">Home</span>  
 					</div>
 				</NavLink>  
                 <NavLink to="/toDo" exact={true} activeClassName="sidebar-active">
 					<div id="sidebar-link">
-						<MdHome size="1.5em" /> <span id="sidebar-link-text">To Do</span>
+						<MdOutlineChecklist size="1.5em" /> <span id="sidebar-link-text">To Do</span> 
 					</div>
 				</NavLink> 
                 <NavLink to="/workers" exact={true} activeClassName="sidebar-active">
 					<div id="sidebar-link">
-						<MdHome size="1.5em" /> <span id="sidebar-link-text">Employees</span>
+						<AiOutlineUsergroupAdd size="1.5em" /> <span id="sidebar-link-text">Employees</span> 
 					</div>
 				</NavLink> 
                 <NavLink to="/inventory" exact={true} activeClassName="sidebar-active">
 					<div id="sidebar-link">
-						<MdHome size="1.5em" /> <span id="sidebar-link-text">Inventory</span>
-					</div> 
+						<MdCases size="1.5em" /> <span id="sidebar-link-text">Inventory</span>
+					</div>  
 				</NavLink> 
 			</div>
 			<div className="sidebar-projects-section">
