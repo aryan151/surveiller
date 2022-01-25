@@ -40,7 +40,7 @@ function MainContent ({show, toggle, content}) {
     }, [dispatch, content]) 
 
 
-    if (!loaded){
+    if (!loaded){  
         return null;
     }
 	return (
