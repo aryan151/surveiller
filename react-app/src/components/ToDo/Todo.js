@@ -1,7 +1,7 @@
 function ToDo () {
     return (
         <div>
-            <p> Employee Page</p>
+            <p> To Do</p>
         </div>
     )
 }

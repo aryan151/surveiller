@@ -67,34 +67,34 @@ function App() {
           <SignUpForm />
         </Route>
 
-				<ProtectedRoute path="/home" exact={true}>  
+				<ProtectedRoute path="/home" exact={true}>    
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} page="home" />       
+						<MainContent show={showSidebar} toggle={toggleSidebar} content="home" />       
 					</div>
 				</ProtectedRoute>
 				<ProtectedRoute path="/toDo" exact={true}> 
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} page="toDo" />     
+						<MainContent show={showSidebar} toggle={toggleSidebar} content="toDo" />     
 					</div>
 				</ProtectedRoute>
 				<ProtectedRoute path="/workers" exact={true}>
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} page="workers" />  
+						<MainContent show={showSidebar} toggle={toggleSidebar} content="workers" />  
 					</div>
 				</ProtectedRoute>
         <ProtectedRoute path="/inventory" exact={true}>
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} page="inventory" /> 
+						<MainContent show={showSidebar} toggle={toggleSidebar} content="inventory" /> 
 					</div>
 				</ProtectedRoute>
         <ProtectedRoute path="/projects/:projectId" exact={true}>   
 					<div className="asanawrapper">
 						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} page="project" />   
+						<MainContent show={showSidebar} toggle={toggleSidebar} content="project" />   
 					</div>
 				</ProtectedRoute>   
 
