@@ -1,7 +1,7 @@
 function Employees () {
     return (
         <div>
-            <p> Employee Page</p>
+            <p> Employee Page</p>  
         </div>
     )
 }
