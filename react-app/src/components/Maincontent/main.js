@@ -18,11 +18,11 @@ function MainContent ({show, toggle, content}) {
     useEffect(async() => {
         setLoaded(false);
         if (content === 'home') {
-            //dispatch one project 
+            //dispatch one project   
             setLoaded(true);
         }
         if (content === 'toDo') {
-            //dispatch one project 
+            //dispatch one project   
             setLoaded(true);
         }
         if (content === 'workers') {
@@ -45,23 +45,28 @@ function MainContent ({show, toggle, content}) {
     }
 	return (
 		<div
-			className={`openboard-root-page ${
+			className={`rootwrapper ${
 				content === "home" ? "mainBackground" : null 
 			}`}
 		>
 			<Route path="/home" exact={true}> 
+                <TopNav show={show} toggle={toggle} content={content} title={"Home"} />  
 				<Home />
 			</Route>
             <Route path="/toDo" exact={true}>  
+                <TopNav show={show} toggle={toggle} content={content} title={"toDo"} /> 
 				<ToDo /> 
 			</Route>
             <Route path="/workers" exact={true}> 
+                <TopNav show={show} toggle={toggle} content={content} title={"workers"} /> 
 				<Employees />
 			</Route>
             <Route path="/inventory" exact={true}> 
+                <TopNav show={show} toggle={toggle} content={content} title={"inventory"} /> 
 				<Inventory />  
 			</Route>
 			<Route path="/projects/:projectId">
+                <TopNav show={show} toggle={toggle} content={content}/> 
                 <Projects /> 
             </Route>
 		</div>

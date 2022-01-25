@@ -3,3 +3,13 @@
     background-color: lightgrey;
     transition: background-image 200ms ease-in-out;
 }
+
+.rootwrapper {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    flex-direction: column;
+    min-width: 920px;
+    overflow: scroll;
+    background-color: #F9F8F8; 
+}
