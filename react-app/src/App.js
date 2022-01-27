@@ -8,11 +8,13 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
+import {setTheme} from './store/theme' 
 import Splash from './components/splash/splash' 
 import Navigation from './components/Navigation/navigation';    
 import MainContent from "./components/Maincontent/main";
 function App() { 
   const sessionUser = useSelector((state) => state.session.user); 
+  const theme = useSelector(state => state.theme); 
   const dispatch = useDispatch();
 
   const [loaded, setLoaded] = useState(false); 
@@ -30,6 +32,7 @@ function App() {
 	useEffect(() => {
 		(async () => {
 			await dispatch(authenticate());
+			dispatch(setTheme()) 
 			if (!localStorage.getItem("sidebar")) {
 				localStorage.setItem("sidebar", true);
 				setShowSidebar(true);
@@ -53,8 +56,8 @@ function App() {
   }
 
   return (
+	<div className={`${theme} app`}> 
     <BrowserRouter>
-
       <Switch>				
         <Route path="/" exact={true}>
           <NavBar />
@@ -107,6 +110,7 @@ function App() {
         </ProtectedRoute> 
       </Switch>
     </BrowserRouter>
+	</div>
   );
 }
 

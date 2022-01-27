@@ -9,12 +9,14 @@ import { RiHome6Line } from "react-icons/ri";
 import { MdOutlineChecklist } from "react-icons/md";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { MdCases } from "react-icons/md";
+import {toggleTheme} from "../../store/theme"
 
 
 import './sidebar.css' 
 
 function Navigation ({show, toggle}) { 
     const user = useSelector((state) => state.session.user);   
+	const theme = useSelector(state => state.theme); 
     const navToggle = show ? "NavShow" : "NavClose"; 
     return (
 		<nav className={navToggle}>  
@@ -51,7 +53,10 @@ function Navigation ({show, toggle}) {
 					My Projects
 				</div> 
 			</div>
-			<div className="sidebar-log-out">
+			<div id="sidebar-link">
+						<AiOutlineUsergroupAdd size="1.5em" /> <span id="sidebar-link-text">Employees</span> 
+					</div>
+			<div className="sidebar-log-out">  
 				<LogoutButton /> 
 			</div> 
 		</nav>
