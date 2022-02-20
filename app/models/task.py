@@ -21,6 +21,7 @@ class Task(db.Model):
     assignee = db.relationship("User", backref='assignee', primaryjoin='Task.assignee_id==User.id', lazy=True)
     tasks = db.relationship("Section", backref='section_tasks', lazy=True)
     section = db.relationship("Section", primaryjoin='Task.section_id==Section.id', lazy=True)
+    subtasks = db.relationship("SubTask", back_populates='task', cascade='all, delete')
 
     def to_dict(self):
         task_project = self.section.projects.to_task_dict()
