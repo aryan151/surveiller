@@ -8,7 +8,7 @@ class Task(db.Model):
     title = db.Column(db.Text)
     description = db.Column(db.Text)
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    assignees_id = db.Column(db.Array(db.Integer, nullable=True))  
+    assignees_id = db.Column(db.ARRAY(db.Integer), nullable=True)  
     section_id = db.Column(db.Integer, db.ForeignKey("sections.id"), nullable=False)
     status = db.Column(db.String(100))
     priority = db.Column(db.String(100))
@@ -17,8 +17,7 @@ class Task(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), nullable=False)
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False)
 
-    owner = db.relationship("User", backref='user', primaryjoin='Task.owner_id==User.id', lazy=True)
-    assignee = db.relationship("User", backref='assignee', primaryjoin='Task.assignee_id==User.id', lazy=True)
+    owner = db.relationship("User", backref='user', primaryjoin='Task.owner_id==User.id', lazy=True) 
     tasks = db.relationship("Section", backref='section_tasks', lazy=True)
     section = db.relationship("Section", primaryjoin='Task.section_id==Section.id', lazy=True)
     subtasks = db.relationship("SubTask", back_populates='task', cascade='all, delete')
@@ -30,16 +29,14 @@ class Task(db.Model):
             endDate = self.end_date.strftime("%b %-d '%y")
         else:
             endDate = None
-        assignee = None
-        if (self.assignee):
-            assignee = self.assignee.to_dict() 
+
 
         return {
             'id': self.id,
             'title': self.title,
             'description': self.description,
             'owner': self.owner.to_dict(),
-            'assignee': assignee,
+            'assignees_id': self.assignees_id, 
             'section_id': self.section_id,
             'project': task_project,
             'status' : self.status,
@@ -47,6 +44,7 @@ class Task(db.Model):
             'end_date' : endDate,
             'plain_format_date': self.end_date,
             'completed' : self.completed,
+            'tasks': [subtask.to_dict() for subtask in self.subtasks],  
             'created_at' : self.created_at,
             'updated_at' : self.updated_at
         } 
