@@ -8,7 +8,7 @@ class SubTask(db.Model):
     description = db.Column(db.String(200), nullable=False)
     completed = db.Column(db.Boolean, default=False)
 
-    project = db.relationship('Task', back_populates='tasks') 
+    task = db.relationship('Task', back_populates='subtasks')   
 
     def to_dict(self):
         return {

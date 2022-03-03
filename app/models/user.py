@@ -1,15 +1,25 @@
+from sqlalchemy import null
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-
+project_members_join = db.Table(
+   'project_members',
+    db.Column("project_id", db.Integer, db.ForeignKey("projects.id"), primary_key=True),
+    db.Column("member_id", db.Integer, db.ForeignKey("users.id"), primary_key=True)
+    )
+    
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    avatar = db.Column(db.String(500), nullable=True, default='https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg') 
+    notepad = db.Column(db.Text, default="") 
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    projects = db.relationship("Project", backref='user_project') 
 
     @property
     def password(self):
@@ -22,9 +32,18 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+
     def to_dict(self):
+        projects = {}
+        for project in self.user_projects:
+            projects[project.id] = {
+                'project_id': project.id,
+                'project_title': project.title,
+            } 
         return {
             'id': self.id,
-            'username': self.username,
-            'email': self.email
+            'name': self.name,
+            'avatar': self.avatar, 
+            'email': self.email,
+            'projects' : projects
         }
