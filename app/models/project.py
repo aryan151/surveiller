@@ -9,12 +9,12 @@ class Project(db.Model):
     description = db.Column(db.Text)
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False)
-    updated_at = db.Column(db.DateTime(timezone=True), nullable=False)
+    updated_at = db.Column(db.DateTime(timezone=True), nullable=False) 
 
 
     sections = db.relationship("Section", backref='section',cascade="all, delete, delete-orphan", lazy=True)
 
-    user_projects = db.relationship('User', secondary=project_members_join,passive_deletes=True, lazy="subquery", backref=db.backref('user_projects', lazy=True))
+    user_projects = db.relationship('User',passive_deletes=True, lazy="subquery", backref=db.backref('user_projects', lazy=True))
 
 
     def to_dict(self):
