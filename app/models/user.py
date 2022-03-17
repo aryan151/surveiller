@@ -30,20 +30,14 @@ class User(db.Model, UserMixin):
         self.hashed_password = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password, password)
+        return check_password_hash(self.password, password)  
 
 
     def to_dict(self):
-        projects = {}
-        for project in self.user_projects:
-            projects[project.id] = {
-                'project_id': project.id,
-                'project_title': project.title,
-            } 
+
         return {
             'id': self.id,
             'name': self.name,
             'avatar': self.avatar, 
             'email': self.email,
-            'projects' : projects
         }
