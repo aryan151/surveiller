@@ -33,7 +33,9 @@ def seed_users():
     db.session.add(project1)
     db.session.add(project2)
 
-
+    project1.project_members.append(demo)
+    project1.project_members.append(marnie)
+    project2.project_members.append(demo) 
     db.session.commit()
 
 

@@ -1,9 +1,11 @@
 const LOAD_PROJECT = "project/LOAD_PROJECT"; 
 
-const loadProject = (project) => ({
+const loadProject = (project) => ({ 
 	type: LOAD_PROJECT,
 	payload: project,
-});
+});    
+
+
 
 export const getProject = (projectId) => async (dispatch) => {
 	const response = await fetch(`/api/projects/${projectId}`, {
@@ -22,9 +24,9 @@ export const getProject = (projectId) => async (dispatch) => {
 };
 
 
-const initialState = { project: " " };
-
-export default function reducer(state = initialState, action) {
+const initialState = { project: " " }; 
+  
+export default function reducer (state = initialState, action) {
 	switch (action.type) {
 		case LOAD_PROJECT:
 			return action.payload; 

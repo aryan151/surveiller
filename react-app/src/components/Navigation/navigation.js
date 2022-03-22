@@ -1,21 +1,29 @@
 import React from "react";
-import { useSelector } from "react-redux"; 
+import { useEffect } from 'react'; 
+import { useSelector, useDispatch } from "react-redux"; 
 import { NavLink, Link } from "react-router-dom"; 
 import LogoutButton from "../auth/LogoutButton";    
 import { MdMenuOpen } from "react-icons/md";
 import { FaSquare, FaPlus } from "react-icons/fa"; 
 import { SiAsana } from "react-icons/si";   
-import { RiHome6Line } from "react-icons/ri";
+import { RiHome6Line } from "react-icons/ri";  
 import { MdOutlineChecklist } from "react-icons/md";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
-import { MdCases } from "react-icons/md";
-
+import { MdCases } from "react-icons/md"; 
+import { getAllProjects } from "../../store/sidebar";  
 
 import './sidebar.css' 
 
 function Navigation ({show, toggle}) { 
-    const user = useSelector((state) => state.session.user);   
+	const dispatch = useDispatch() 
+
+    const user = useSelector((state) => state?.session?.user);   
     const navToggle = show ? "NavShow" : "NavClose"; 
+
+    useEffect(() => {
+        dispatch(getAllProjects) 
+    }, [dispatch])
+
     return (
 		<nav className={navToggle}>  
 			<div className="Navtop"> 

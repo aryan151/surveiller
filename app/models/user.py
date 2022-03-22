@@ -20,7 +20,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     projects = db.relationship("Project", backref='user_project') 
-
+    project_participants = db.relationship('Project', secondary=project_members_join, lazy="subquery",passive_deletes=True, backref=db.backref('project_members', lazy=True))
+ 
     @property
     def password(self):
         return self.hashed_password
@@ -34,10 +35,16 @@ class User(db.Model, UserMixin):
 
 
     def to_dict(self):
-
+        projects = {}
+        for project in self.user_projects:
+            projects[project.id] = {
+                'project_id': project.id,
+                'project_title': project.title, 
+            } 
         return {
             'id': self.id,
             'name': self.name,
             'avatar': self.avatar, 
             'email': self.email,
+            'projects' : projects 
         }

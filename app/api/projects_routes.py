@@ -9,6 +9,15 @@ today = datetime.today();
 
 projects_routes = Blueprint('projects', __name__)
   
+@projects_routes.route('/all')
+@login_required
+def getAllProjects(id): 
+    projects = Project.query.all()  
+
+    return {'projects': [project.to_dict() for project in projects]}   
+
+
+
 
 @projects_routes.route('/<int:id>')
 @login_required
