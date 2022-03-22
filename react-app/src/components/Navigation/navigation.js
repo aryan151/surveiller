@@ -10,6 +10,7 @@ import { RiHome6Line } from "react-icons/ri";
 import { MdOutlineChecklist } from "react-icons/md";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { MdCases } from "react-icons/md"; 
+import { AiOutlineProject } from "react-icons/ai";
 import { getAllProjects } from "../../store/sidebar";  
 
 import './sidebar.css' 
@@ -17,7 +18,8 @@ import './sidebar.css'
 function Navigation ({show, toggle}) { 
 	const dispatch = useDispatch() 
 
-    const user = useSelector((state) => state?.session?.user);   
+    const user = useSelector((state) => state?.session?.user);    
+	const user_projects = user.projects; 
     const navToggle = show ? "NavShow" : "NavClose"; 
 
     useEffect(() => {
@@ -27,7 +29,7 @@ function Navigation ({show, toggle}) {
     return (
 		<nav className={navToggle}>  
 			<div className="Navtop"> 
-                <SiAsana className="NavtopLogo"/>  
+                <SiAsana className="NavtopLogo"/>    
 				<div className="navToggleBtn" onClick={toggle}>
 					<MdMenuOpen size="2em" />
 				</div> 
@@ -58,6 +60,15 @@ function Navigation ({show, toggle}) {
 				<div id="sidebar-projects-title">
 					My Projects
 				</div> 
+				{user_projects
+					? Object.keys(user_projects).map((key) => (
+							<NavLink to={`/projects/${user_projects[key].project_id}`} activeClassName="sidebar-active" key={user_projects[key].project_id}>
+								<div id="sidebar-link">
+							<span id="sidebar-link-text">{user_projects[key].project_title}</span>  
+								</div>  
+							</NavLink>
+					  ))
+					: null}
 			</div>
 			<div className="sidebar-log-out">
 				<LogoutButton /> 
