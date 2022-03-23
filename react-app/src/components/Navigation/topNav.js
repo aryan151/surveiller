@@ -74,7 +74,7 @@ function TopNav ({show, toggle, content, project}) {
 
     if (content === "project") {
 		return (
-			<div className={`defaultTopNav${content === "project" ? headerStyle : null}`} >
+			<div className={`defaultTopNav ${content === "project" ? headerStyle : null}`} >
 				<div className={toggleButtonClassName}>
                 <div className="toggleTopNav" onClick={toggle}> 
 						<MdMenu size="1.5em" />

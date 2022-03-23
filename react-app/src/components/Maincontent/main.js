@@ -8,12 +8,14 @@ import Projects from "../Projects/projects"
 import Employees from "../Employees/employees"
 import ToDo from "../ToDo/Todo"  
 import './main.css'    
-
+import { getProject } from "../../store/project"; 
 function MainContent ({show, toggle, content}) {
 
     const dispatch = useDispatch();
+    const {projectId} = useParams(); 
     const [loaded, setLoaded] = useState(false);   
-
+    const [project, setProject] = useState("") 
+ 
 
     useEffect(async() => {
         setLoaded(false);
@@ -24,7 +26,7 @@ function MainContent ({show, toggle, content}) {
         if (content === 'toDo') {
             //dispatch one project   
             setLoaded(true);
-        }
+        } 
         if (content === 'workers') {
             //dispatch one project 
             setLoaded(true);
@@ -34,11 +36,12 @@ function MainContent ({show, toggle, content}) {
             setLoaded(true);
         }
         else if(content === 'project'){
-            //dispatch one project 
+            const res = await dispatch(getProject(projectId))
+            setProject(res)  
             setLoaded(true)
         } 
-    }, [dispatch, content]) 
-
+    }, [dispatch, content, projectId]) 
+ 
 
     if (!loaded){  
         return null;
@@ -65,8 +68,8 @@ function MainContent ({show, toggle, content}) {
                 <TopNav show={show} toggle={toggle} content={content} title={"inventory"} /> 
 				<Inventory />  
 			</Route>
-			<Route path="/projects/:projectId">
-                <TopNav show={show} toggle={toggle} content={content}/> 
+			<Route path="/projects/:projectId"> 
+                <TopNav show={show} toggle={toggle} content={content} project={project} />  
                 <Projects /> 
             </Route>
 		</div>
