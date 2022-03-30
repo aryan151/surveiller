@@ -80,7 +80,7 @@ function TopNav ({show, toggle, content, project}) {
 						<MdMenu size="1.5em" />
 					</div>
 				</div>
-				<h1 className="top-bar-title"> Project </h1> 
+				<h1 className="top-bar-title"> {project.title} </h1> 
 			</div>
 		);
 	} 
