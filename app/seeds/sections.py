@@ -1,4 +1,4 @@
-from app.models import db, Section
+from app.models import db, Section, Section2, Section3, Section4
 from datetime import date
 today = date.today()
 
@@ -68,6 +68,140 @@ def seed_sections():
     db.session.add(section6)
     db.session.add(section7)
     db.session.add(section8)
+
+
+    section11 = Section2(
+        project_id=1,
+        board_column=0,
+        title='Main Store',
+        info='avalible to sell',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today) 
+    
+    section12 = Section2(
+        project_id=1,
+        board_column=1,
+        title='Transit',
+        info = 'eta 1 week',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today)
+    
+    section13 = Section2(
+        project_id=1,
+        board_column=2,
+        title='Warehouse 1',
+        info='',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today)
+
+    section14 = Section2(
+        project_id=1,
+        board_column=3,
+        title='Warehouse 2',
+        info='empty', 
+        tasks_order=[], 
+        created_at=today,
+        updated_at=today)
+
+
+    db.session.add(section11)
+    db.session.add(section12)
+    db.session.add(section13)
+    db.session.add(section14) 
+
+    section21 = Section3(
+        project_id=1,
+        board_column=0,
+        title='Main Site',
+        info='',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today) 
+    
+    section22 = Section3(
+        project_id=1,
+        board_column=1,
+        title='Warehouse',
+        info = '',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today)
+    
+    section23 = Section3(
+        project_id=1,
+        board_column=2,
+        title='Remote',
+        info='',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today) 
+
+    section24 = Section3(
+        project_id=1,
+        board_column=3,
+        title='Leave', 
+        info='empty', 
+        tasks_order=[], 
+        created_at=today,
+        updated_at=today) 
+
+
+    db.session.add(section21)
+    db.session.add(section22)
+    db.session.add(section23)  
+    db.session.add(section24) 
+
+
+    section41 = Section4(
+        project_id=1,
+        board_column=0,
+        title='Recently Assigned',
+        info='',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today) 
+    
+    section42 = Section4(
+        project_id=1,
+        board_column=1,
+        title='Do Today',
+        info = '',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today)
+    
+    section43 = Section4(
+        project_id=1,
+        board_column=2,
+        title='Do Next Week',
+        info='',
+        tasks_order=[],
+        created_at=today,
+        updated_at=today) 
+
+    section44 = Section4(
+        project_id=1,
+        board_column=3,
+        title='Do Later',  
+        info='empty', 
+        tasks_order=[], 
+        created_at=today, 
+        updated_at=today) 
+
+
+    db.session.add(section41)
+    db.session.add(section42)
+    db.session.add(section43)  
+    db.session.add(section44) 
+
+
+
+
+
+
 
     db.session.commit()
 

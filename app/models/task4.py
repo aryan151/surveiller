@@ -7,13 +7,13 @@ class Task4(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
     description = db.Column(db.Text) 
-    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    section_id = db.Column(db.Integer, db.ForeignKey("sections.id"), nullable=False)
+    owner_id = db.Column(db.Integer, nullable=False)
+    section_id = db.Column(db.Integer, db.ForeignKey("sections4.id"), nullable=False)
     completed = db.Column(db.Boolean, default=False, nullable=False) 
     created_at = db.Column(db.DateTime(timezone=True), nullable=False)
-    updated_at = db.Column(db.DateTime(timezone=True), nullable=False)
+    updated_at = db.Column(db.DateTime(timezone=True), nullable=False) 
 
-    owner = db.relationship("User", backref='user', primaryjoin='Task4.owner_id==User.id', lazy=True) 
+  
     tasks = db.relationship("Section4", backref='section4_tasks', lazy=True)
     section = db.relationship("Section4", primaryjoin='Task4.section_id==Section4.id', lazy=True) 
  
@@ -28,8 +28,7 @@ class Task4(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'description': self.description,
-            'owner': self.owner.to_dict(), 
+            'description': self.description, 
             'section_id': self.section_id,
             'plain_format_date': self.end_date,
             'completed' : self.completed,  

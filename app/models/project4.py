@@ -5,12 +5,12 @@ class Project4(db.Model):
     __tablename__ = 'projects4' 
 
     id = db.Column(db.Integer, primary_key=True) 
-    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    owner_id = db.Column(db.Integer,nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False)
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False) 
 
 
-    sections = db.relationship("Section4", backref='section',cascade="all, delete, delete-orphan", lazy=True)  
+    sections = db.relationship("Section4", backref='section4',cascade="all, delete, delete-orphan", lazy=True)  
 
  
  

@@ -8,12 +8,12 @@ class Task2(db.Model):
     title = db.Column(db.Text)
     description = db.Column(db.Text)
     quantity = db.Column(db.Integer) 
-    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    section_id = db.Column(db.Integer, db.ForeignKey("sections.id"), nullable=False)
-    created_at = db.Column(db.DateTime(timezone=True), nullable=False)
+    owner_id = db.Column(db.Integer, nullable=False)
+    section_id = db.Column(db.Integer, db.ForeignKey("sections2.id"), nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), nullable=False) 
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False)
 
-    owner = db.relationship("User", backref='user', primaryjoin='Task2.owner_id==User.id', lazy=True) 
+    
     tasks = db.relationship("Section2", backref='section2_tasks', lazy=True)
     section = db.relationship("Section2", primaryjoin='Task2.section_id==Section2.id', lazy=True) 
 
@@ -28,8 +28,7 @@ class Task2(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'description': self.description,
-            'owner': self.owner.to_dict(),
+            'description': self.description, 
             'quantity': self.quantity,  
             'section_id': self.section_id,
             'plain_format_date': self.end_date,

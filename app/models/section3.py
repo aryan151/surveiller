@@ -5,7 +5,7 @@ class Section3(db.Model):
     __tablename__ = 'sections3' 
 
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('projects3.id'), nullable=False)
     board_column = db.Column(db.Integer, nullable=False, default=0)
     tasks_order = db.Column(db.ARRAY(db.Integer), nullable=False, default=[])
     title = db.Column(db.Text, nullable=False)

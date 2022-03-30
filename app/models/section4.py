@@ -5,10 +5,10 @@ class Section4(db.Model):
     __tablename__ = 'sections4' 
 
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('projects4.id'), nullable=False)
     board_column = db.Column(db.Integer, nullable=False, default=0)
     tasks_order = db.Column(db.ARRAY(db.Integer), nullable=False, default=[])
-    title = db.Column(db.Text, nullable=False)
+    title = db.Column(db.Text, nullable=False) 
     info = db.Column(db.Text)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False)
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False)

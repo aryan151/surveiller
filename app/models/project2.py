@@ -5,18 +5,18 @@ class Project2(db.Model):
     __tablename__ = 'projects2' 
 
     id = db.Column(db.Integer, primary_key=True) 
-    owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    owner_id = db.Column(db.Integer, nullable=False) 
     created_at = db.Column(db.DateTime(timezone=True), nullable=False)
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False) 
 
 
-    sections = db.relationship("Section2", backref='section',cascade="all, delete, delete-orphan", lazy=True)  
+    sections = db.relationship("Section2", backref='section2',cascade="all, delete, delete-orphan", lazy=True)  
 
  
  
+ 
 
-
-    def to_dict(self):
+    def to_dict(self): 
 
         sections = {section.id:section.to_dict() for section in self.project2_sections}
         section_board_columns = {section.id:section.board_column for section in self.project2_sections}

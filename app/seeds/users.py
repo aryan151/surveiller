@@ -30,8 +30,27 @@ def seed_users():
         created_at=today,
         updated_at=today)
 
+    project3 = Project2( 
+        owner_id=1,
+        created_at=today,
+        updated_at=today)
+
+    project4 = Project3( 
+        owner_id=1,
+        created_at=today,
+        updated_at=today)
+
+    project5 = Project4( 
+        owner_id=1,
+        created_at=today,
+        updated_at=today)
+
+
     db.session.add(project1)
     db.session.add(project2)
+    db.session.add(project3)
+    db.session.add(project4)
+    db.session.add(project5)
 
     project1.project_members.append(demo)
     project1.project_members.append(marnie)
