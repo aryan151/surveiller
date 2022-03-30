@@ -89,7 +89,7 @@ def editProject():
             db.session.commit()
             return project.to_dict()
         except AssertionError as message:
-            print(str(message))
+       
             return jsonify({"error": str(message)}), 400
 
 

@@ -77,14 +77,14 @@
     width: 60px;
     font-size: 14px;
     color: black;
-    background-color: #F06A6A;
+    background-color: #008080;
     border-radius: 5px;
     border:none;
     height: 36px;
     cursor: pointer;
  }
 #modal-button-delete:hover{
-    background-color: #DF6064;
+    background-color: #008080;
 }
  #modal-button-cancel{
     width: 60px;
