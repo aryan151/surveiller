@@ -97,7 +97,7 @@ function Splash () {
 							></i>{" "}
 							Track Inventory
 						</span>
-						<span id="splash-floating-span-2">
+						<span id="splash-floating-span-2"> 
 							<i
 								className="far fa-check-circle"
 								style={{ paddingRight: 10, color: "#f06a6a" }}
