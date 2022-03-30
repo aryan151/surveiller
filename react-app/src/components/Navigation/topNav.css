@@ -29,9 +29,9 @@
     max-width: 0;
     overflow: hidden;
 }
-
-.top-bar-title{
-    color: salmon;
+ 
+.top-bar-title{ 
+    color: #008080;  
     font-size: 24px;
     font-family: 'Raleway', sans-serif;
 }

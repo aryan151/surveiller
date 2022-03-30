@@ -1,3 +1,4 @@
+import { DragDropContext } from "react-beautiful-dnd"; 
 function Projects () {
     return (
         <div>

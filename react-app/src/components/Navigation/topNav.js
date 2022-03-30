@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { MdMenu, MdExpandMore, MdModeEdit } from "react-icons/md"; 
+import { MdMenu, MdExpandMore, MdModeEdit } from "react-icons/md";  
 import './topNav.css'
+
 function TopNav ({show, toggle, content, project}) {  
 
 	const [headerStyle, setHeaderStyle] = useState("topNavDefault");  
@@ -72,7 +73,7 @@ function TopNav ({show, toggle, content, project}) {
 		);
 	} 
 
-    if (content === "project") {
+    
 		return (
 			<div className={`defaultTopNav ${content === "project" ? headerStyle : null}`} >
 				<div className={toggleButtonClassName}>
@@ -83,7 +84,7 @@ function TopNav ({show, toggle, content, project}) {
 				<h1 className="top-bar-title"> {project.title} </h1> 
 			</div>
 		);
-	} 
+	 
 }
 
 export default TopNav         

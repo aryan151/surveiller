@@ -1,5 +1,5 @@
 .modal {
-    position: fixed;
+    position: fixed; 
     left: 0;
     right: 0;
     top: 0;
@@ -101,4 +101,4 @@
  #modal-button-cancel:hover{
     background-color: #F9F8F8;
     border-color: #AEABAC;
-}
+}  
