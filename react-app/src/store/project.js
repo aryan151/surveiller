@@ -1,9 +1,16 @@
 const LOAD_PROJECT = "project/LOAD_PROJECT"; 
+const UPDATE_PROJECT_SECTION = "project/UPDATE_PROJECT_SECTION";
+
 
 const loadProject = (project) => ({ 
 	type: LOAD_PROJECT,
 	payload: project, 
 });    
+
+const reRenderSection = (section) => ({
+	type: UPDATE_PROJECT_SECTION, 
+	payload: section,
+});
 
  
 
@@ -57,6 +64,122 @@ export const deleteProject = (projectId) => async (dispatch) => {
 	} 
 };
 
+export const createProject = (payload) => async (dispatch) => {
+	const response = await fetch(`/api/projects/`, {
+        method: 'POST',
+		headers: {
+			"Content-Type": "application/json",
+		},
+        body: JSON.stringify(payload)
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(loadProject(data));
+		return data;
+	} else {
+		return response;
+	}
+};
+
+export const deleteTask = (sectionId, taskId) => async (dispatch) => {
+    
+    const data = {
+        'sectionId' : sectionId
+    }
+	const response = await fetch(`/api/tasks/${taskId}/delete`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+        body: JSON.stringify(data)
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		return data;
+	} else {
+		return response;
+	}
+};
+export const addTask = (sectionId, position) => async (dispatch) => {
+	const data = {
+		"sectionId": sectionId,
+        "position": position
+	};
+	const response = await fetch(`/api/tasks/`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data),
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		return data;
+	} else {
+		return response;
+	}
+};
+
+export const updateSection =
+	(sectionId, newSection, taskId) => async (dispatch) => {
+		let data;
+		if (taskId) {
+			data = {
+				newSection: newSection,
+				taskId: taskId,
+			};
+		} else {
+		data = {
+			newSection: newSection,
+			taskId: "None",
+		};
+    }
+		const response = await fetch(`/api/sections/${sectionId}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		});
+
+		if (response.ok) {
+			dispatch(reRenderSection(newSection));
+			return newSection;
+		} else {
+			return response;
+		}
+	};
+
+export const updateTask =
+	(taskId, task) => async (dispatch) => {
+
+		const response = await fetch(`/api/tasks/${taskId}`, { 
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(task),
+		});
+
+		if (response.ok) {
+			return response;
+		} else {
+			return response;
+		}
+	};
+
+export const getTask = (taskId) => async (dispatch) => {
+	const response = await fetch(`/api/tasks/${taskId}`);
+
+	if (response.ok) {
+		return response;
+	} else {
+		return response;
+	}
+};
 
 const initialState = { project: " " }; 
   
@@ -64,6 +187,11 @@ export default function reducer (state = initialState, action) {
 	switch (action.type) {
 		case LOAD_PROJECT:
 			return action.payload; 
+		case UPDATE_PROJECT_SECTION:
+			const sectionId = action.payload.id;
+			state[sectionId] = action.payload;
+			const newState = { ...state }; 
+			return newState;
 		default:
 			return state;
 	}
