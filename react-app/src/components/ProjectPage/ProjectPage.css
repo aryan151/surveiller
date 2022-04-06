@@ -1,0 +1,28 @@
+.projectpage-main{
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 1px;
+    position: relative;
+}
+.projectpage-board{
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+}
+.projectpage-board-body{
+    scroll-padding-left: 24px;
+    scroll-padding-right: 80px;
+    display: flex;
+    height: 100%;
+    padding: 25px 12px 0;
+    position: relative;
+    min-width: 1px;
+    overflow-x: auto; 
+}
+.projectpage-board-body-details-open{
+    min-width: calc(100% - 700px);
+    width: 45%;
+}

@@ -1,0 +1,68 @@
+.board-section{
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column; 
+    padding-top: 8px;
+    transition: box-shadow 250ms;
+    height: 100%;
+    max-width: 304px;
+    position: relative;
+    flex: 0 0 304px; 
+    width: 304px;  
+    margin-right: 10px;
+    
+}
+.board-section-title svg{
+    margin: 3px;
+}
+.board-section:hover{
+    /* box-shadow: 0 0 0 1px #edeae9; */
+    box-shadow: 0 0 0 1px black;
+}
+.board-section-title{
+    display: flex;
+    align-items: center;
+}
+.board-section-title h3{
+    padding: 10px;
+    font-size: 16px;
+    font-family: "Montserrat-Bold";
+    font-weight: 900;
+    line-height: 20px;
+    color: black;
+    margin-right: auto; 
+}
+.board-section-tasks{
+    scroll-padding-bottom: 24px;
+    scroll-padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 10px 12px 0;
+    min-height: 1px;
+    overflow-y: hidden; 
+}
+#board-section-title-options{
+    margin-right: 15px;
+}
+#board-section-title-add-task{
+    margin-right: 12px;
+}
+#section-add-task-button-lower:hover{
+    cursor: pointer;
+    background-color: #F5F3F3; 
+
+}
+
+#section-add-task-button-lower{
+    width: 100%;
+    display: flex;
+    height: 36px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border:none;
+}

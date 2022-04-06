@@ -24,6 +24,7 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
+        print("here")
         return current_user.to_dict()
     return {'errors': ['Unauthorized']}
 
@@ -63,7 +64,7 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
-            username=form.data['username'],
+            full_name=form.data['fullname'],
             email=form.data['email'],
             password=form.data['password']
         )

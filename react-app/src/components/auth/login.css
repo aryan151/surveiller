@@ -1,0 +1,99 @@
+@font-face {
+	font-family: "Montserrat-Medium";
+	src: url("../../font/Montserrat/Montserrat-Medium.ttf") format("truetype");
+}
+
+.loginbackground{
+    background-size: cover;
+    background-image: url('../../images/ZSHOME.jpeg');
+    transition: background-image 200ms ease-in-out;
+}
+ 
+
+.login-main-div{
+    background-size: cover;
+    background-image: url('../../images/ZSHOME.jpeg');
+    transition: background-image 200ms ease-in-out;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+.login-panel-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 440px;
+    width: calc(100% - 16px);
+    border-radius: 8px;
+    padding: 24px 48px 48px;
+    max-height: 600px;
+    margin-top: 80px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+}
+
+#login-logo h1{
+    width: 200px;
+    margin-top: 70px;
+    margin-bottom: 40px;
+    color: red;
+    text-align: center;
+    text-decoration: none;
+    font-family: "Montserrat-Medium";
+}
+
+
+
+#login-label{
+    font-size: 12px;
+    color: #6E7782;
+    margin-bottom: 10px;
+    font-family: "Montserrat-Medium";
+}
+
+.login-panel-div input{
+    height: 36px;
+    padding: 6px 12px;
+    margin-top: 1px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #cbd4db;
+}
+.login-panel-div form{
+    width: 100%;
+    border-top: 1px solid #cbd4db;
+}
+ .login-errors{
+     background-color: #FFEDEF;
+     color: #FF5262;
+     margin-bottom: 20px;
+     font-size: 14px;
+ }
+#login-button{
+    width: 100%;
+    margin-top: 30px;
+    font-size: 14px;
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    border:none;
+    height: 36px;
+}
+#login-button:hover{
+    background-color: lightcoral;
+    cursor: pointer;
+}
+#login-no-account{
+    font-size: 15px;
+    margin-top: 20px;
+    color: #6E7782;
+    font-family: "Montserrat-Medium";
+}
+
+#login-no-account a{
+    text-decoration: none;
+    color:red; 
+}

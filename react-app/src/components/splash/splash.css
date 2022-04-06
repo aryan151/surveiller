@@ -1,16 +1,15 @@
 @font-face {
 	font-family: "Montserrat-Bold";
-	src: url("./Montserrat-Medium.ttf") format("truetype");
+	src: url("../../font/Montserrat/Montserrat-Medium.ttf") format("truetype");
 }
 @font-face {
 	font-family: "Montserrat-Light";
-	src: url("./Montserrat-Light.ttf") format("truetype");
+	src: url("../../font/Montserrat/Montserrat-Light.ttf") format("truetype");
 }
 @font-face {
-	font-family: "Montserrat-ExtraLight"; 
-	src: url("./Montserrat-ExtraLight.ttf") format("truetype");
+	font-family: "Montserrat-ExtraLight";
+	src: url("../../font/Montserrat/Montserrat-ExtraLight.ttf") format("truetype");
 }
-
 
 .splash-header {
 	height: 100%;
@@ -37,12 +36,14 @@
 	background-color: white;
 	box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.2);
 }
-.splash-header-logo {
-    font-family:"Montserrat-Bold";
-	font-size: 20px;
-	color: 	#008080; 
+#splash-header-logo {
+	padding: 14px 10px 0px 10px;
+	width: 181px;
+	color:  #FF0000;
 }
-
+#splash-header-logo img {
+	width: 100%;
+}
 .splash-background-container {
 	width: 100%;
 	height: 110vh;
@@ -96,7 +97,7 @@
 }
 
 #splash-sign-up-top:hover {
-	background-color:	#008080; 
+	background-color: #FF0000;
 	color: black;
 	cursor: pointer;
 }
@@ -144,7 +145,7 @@
 #splash-sign-up-bottom {
 	width: 150px;
 	margin-top: 9px;
-	margin-right: 10px; 
+	margin-right: 10px;
 	font-family: "Montserrat-Bold";
 	height: 50px;
 	background-color: #0d0e10;
@@ -153,13 +154,9 @@
 	font-size: 18px;
 	border-radius: 4px;
 }
-.h4 i {
-color: #008080; 
-}
-
 
 #splash-sign-up-bottom:hover {
-	background-color: 	#008080;
+	background-color: #FF0000;
 	color: black;
 	cursor: pointer;
 }
@@ -169,7 +166,7 @@ color: #008080;
 	margin-right: 10px;
 	font-family: "Montserrat-Bold";
 	height: 50px;
-	background-color:	#008080;
+	background-color: #FF0000;
 	color: white;
 	border: none;
 	font-size: 18px;
@@ -177,7 +174,7 @@ color: #008080;
 }
 
 #splash-demo-bottom:hover {
-	background-color: #008080;
+	background-color: #FF0000;
 	color: white;
 	cursor: pointer;
 }
@@ -262,4 +259,25 @@ color: #008080;
     animation-duration: 12s;
     animation-timing-function: ease;
     animation-name: slide;
+}
+
+#about-link{
+	display: flex;
+	align-items: center;
+	margin-top: 2px;
+	position: relative;
+}
+#about-link:hover{
+	cursor: pointer;
+}
+#about-me{
+	position: absolute;
+	padding: 6px 20px;
+	border-radius: 2px;
+	top:30px;
+	left:0;
+	width: 240px;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+
 } 

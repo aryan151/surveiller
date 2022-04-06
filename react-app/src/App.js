@@ -1,34 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
-import User from './components/User';
-import { authenticate } from './store/session';
-import Splash from './components/splash/splash' 
-import Navigation from './components/Navigation/navigation';    
-import MainContent from "./components/Maincontent/main";
-function App() { 
-  const sessionUser = useSelector((state) => state.session.user); 
-  const dispatch = useDispatch();
+import LoginForm from "./components/auth/LoginForm";
+import SignUpForm from "./components/auth/SignUpForm";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import SideBar from "./components/SideBar/SideBar";
+import LoadingScreen from "./components/LoadingScreen";
+import Splash from "./components/Splash/Splash";
+import { authenticate } from "./store/session";
+import RootPage from "./components/RootPage";
+import { setTheme } from "./store/theme";
 
-  const [loaded, setLoaded] = useState(false); 
-  const [showSidebar, setShowSidebar] = useState(); 
-
+function App() {
+	const [loaded, setLoaded] = useState(false);
+	const [showSidebar, setShowSidebar] = useState();
+	const [showDark, setShowDark] = useState();
+	const theme = useSelector(state => state.theme); 
 	const toggleSidebar = () => {
 		setShowSidebar(!showSidebar);
 		localStorage.setItem('sidebar', !showSidebar)
 	}
-
-
+	const toggleDark = () => {
+		setShowDark(!showDark); 
+		localStorage.setItem('dark', !showDark) 
+	}
+	const sessionUser = useSelector((state) => state.session.user);
+	const dispatch = useDispatch();
 
 
 
 	useEffect(() => {
 		(async () => {
 			await dispatch(authenticate());
+			dispatch(setTheme())
+			localStorage.setItem("dark", true);  
+		
 			if (!localStorage.getItem("sidebar")) {
 				localStorage.setItem("sidebar", true);
 				setShowSidebar(true);
@@ -45,67 +51,42 @@ function App() {
 
 		})();
 	}, [dispatch]);
- 
 
-  if (!loaded) {
-    return null;
-  }
 
-  return (
-    <BrowserRouter>
-
-      <Switch>				
-        <Route path="/" exact={true}> 
-          <Splash/> 
+	if (!loaded) {
+		return (
+			<div>
+				<LoadingScreen />
+			</div>
+		)
+	}
+	return (
+		<BrowserRouter>
+			<Switch>
+				<Route path="/" exact={true}>
+					{!sessionUser && <Splash />}
+					{sessionUser && (
+						<div className="zs-main-layer">
+							<SideBar show={showSidebar} toggle={toggleSidebar} toggledark={toggleDark} />
+							<RootPage show={showSidebar} toggle={toggleSidebar} page="home"/>
+						</div>
+					)}
 				</Route>
-        <Route path='/login' exact={true}>  
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>  
-          <SignUpForm />
-        </Route>  
-
-				<ProtectedRoute path="/home" exact={true}>    
-					<div className="asanawrapper">
-						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} content="home" />       
+				<ProtectedRoute path="/projects/:projectId">
+					<div className="zs-main-layer">
+						<SideBar show={showSidebar} toggle={toggleSidebar} />
+						<RootPage show={showSidebar} toggle={toggleSidebar} page="single-project" />
 					</div>
 				</ProtectedRoute>
-				<ProtectedRoute path="/toDo" exact={true}> 
-					<div className="asanawrapper">
-						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} content="toDo" />     
-					</div>
-				</ProtectedRoute>
-				<ProtectedRoute path="/workers" exact={true}>
-					<div className="asanawrapper">
-						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} content="workers" />  
-					</div>
-				</ProtectedRoute>
-        <ProtectedRoute path="/inventory" exact={true}>
-					<div className="asanawrapper">
-						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} content="inventory" /> 
-					</div>
-				</ProtectedRoute>
-        <ProtectedRoute path="/projects/:projectId" exact={true}>   
-					<div className="asanawrapper">
-						<Navigation show={showSidebar} toggle={toggleSidebar} /> 
-						<MainContent show={showSidebar} toggle={toggleSidebar} content="project" />   
-					</div>
-				</ProtectedRoute>   
-
-
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute> 
-      </Switch>
-    </BrowserRouter>
-  );
+				<Route path="/login" exact={true}>
+					<LoginForm />
+				</Route>
+				<Route path="/sign-up" exact={true}>
+					<SignUpForm />
+				</Route>
+			</Switch>
+		</BrowserRouter>
+	);
 }
 
 export default App;

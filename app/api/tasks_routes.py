@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.api.auth_routes import login
-from app.models import User, db, Project, Section, Task 
+from app.models import User, db, Project, Section, Task, Comment
 from operator import itemgetter
 import sqlalchemy
 from datetime import datetime
@@ -22,7 +22,6 @@ def toggleComplete(id):
     task.completed = not task.completed
     db.session.commit()
     return task.to_dict()
-
 
 @tasks_routes.route('/', methods=['POST'])
 @login_required
@@ -57,7 +56,42 @@ def createTask():
         return newTask.to_dict()
     except AssertionError as message:
         print(str(message))
-        return jsonify({"error": str(message)}), 400    
+        return jsonify({"error": str(message)}), 400
+
+@tasks_routes.route('/<int:id>', methods=['POST'])
+@login_required
+def updateTask(id):
+    title, description,end_date,assignee,priority,status, projectId = itemgetter('title', 'description','end_date','assignee','priority','status', 'projectId')(request.json)
+    try:
+        project=Project.query.get(projectId)
+        task = Task.query.get(id)
+        if assignee != "null":
+            user = User.query.get(assignee)
+        task.title = title
+        task.description = description
+        if end_date == 'null':
+            task.end_date = db.null()
+        else:
+            task.end_date = end_date
+        if assignee == 'null':
+            task.assignee_id = db.null()
+        else:
+            task.assignee_id = assignee
+            project.project_members.append(user)
+        if priority == "---":
+            task.priority = db.null()
+        else:
+            task.priority = priority
+        if status == "---":
+            task.status = db.null()
+        else:
+            task.status = status
+
+        db.session.commit()
+        return task.to_dict()
+    except AssertionError as message:
+        print(str(message))
+        return jsonify({"error": str(message)}), 400
 
 @tasks_routes.route('/<int:id>/delete', methods=['POST'])
 @login_required
@@ -81,31 +115,25 @@ def deleteTask(id):
         print(str(message))
         return jsonify({"error": str(message)}), 400
 
-
-@tasks_routes.route('/<int:id>', methods=['POST'])
+@tasks_routes.route('/<int:id>/comment', methods=['POST'])
 @login_required
-def updateTask(id):
-    title, description,end_date,assignee,priority,status, projectId = itemgetter('title', 'description','end_date','priority','status', 'projectId')(request.json)
+def addNewTaskComment(id):
+    commentText = itemgetter('commentText')(request.json)
+    userId = current_user.get_id()
+    task = Task.query.get(id)
     try:
-        project=Project.query.get(projectId)
-        user = User.query.get(assignee)
-        task = Task.query.get(id)
-        task.title = title
-        task.description = description
-        if end_date == 'null': 
-            task.end_date = db.null()
-        else:
-            task.end_date = end_date 
-        if priority == "---":
-            task.priority = db.null()
-        else:
-            task.priority = priority
-        if status == "---":
-            task.status = db.null()
-        else:
-            task.status = status
-
+        comment = Comment(
+            user_id=userId,
+            comment = commentText,
+            created_at=today,
+            updated_at=today
+        )
+        db.session.add(comment)
+        db.session.commit()
+        db.session.refresh(comment)
+        task.task_comments.append(comment)
         db.session.commit()
         return task.to_dict()
     except AssertionError as message:
+        print(str(message))
         return jsonify({"error": str(message)}), 400

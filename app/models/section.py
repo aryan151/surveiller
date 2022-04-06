@@ -1,4 +1,4 @@
-from sqlalchemy.orm import backref  
+from sqlalchemy.orm import backref
 from .db import db
 
 class Section(db.Model):
@@ -27,4 +27,4 @@ class Section(db.Model):
             'tasks': tasks,
             'created_at' : self.created_at,
             'updated_at' : self.updated_at
-        } 
+        }

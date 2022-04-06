@@ -1,18 +1,39 @@
-const LOAD_PROJECT = "project/LOAD_PROJECT"; 
+// constants
+const LOAD_PROJECT = "project/LOAD_PROJECT";
 const UPDATE_PROJECT_SECTION = "project/UPDATE_PROJECT_SECTION";
 
 
-const loadProject = (project) => ({ 
-	type: LOAD_PROJECT,
-	payload: project, 
-});    
 
+const loadProject = (project) => ({
+	type: LOAD_PROJECT,
+	payload: project,
+});
 const reRenderSection = (section) => ({
-	type: UPDATE_PROJECT_SECTION, 
+	type: UPDATE_PROJECT_SECTION,
 	payload: section,
 });
 
- 
+
+const initialState = { project: " " };
+// PROJECT THUNKS
+export const createProject = (payload) => async (dispatch) => {
+	const response = await fetch(`/api/projects/`, {
+        method: 'POST',
+		headers: {
+			"Content-Type": "application/json",
+		},
+        body: JSON.stringify(payload)
+	});
+
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(loadProject(data));
+		return data;
+	} else {
+		return response;
+	}
+};
+
 
 export const getProject = (projectId) => async (dispatch) => {
 	const response = await fetch(`/api/projects/${projectId}`, {
@@ -23,13 +44,12 @@ export const getProject = (projectId) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(loadProject(data)); 
+		dispatch(loadProject(data));
 		return data;
 	} else {
 		return response;
 	}
 };
-
 export const saveProject = (payload) => async (dispatch) => {
 	const response = await fetch(`/api/projects/edit`, {
         method:"POST",
@@ -61,27 +81,10 @@ export const deleteProject = (projectId) => async (dispatch) => {
 		return data;
 	} else {
 		return response;
-	} 
-};
-
-export const createProject = (payload) => async (dispatch) => {
-	const response = await fetch(`/api/projects/`, {
-        method: 'POST',
-		headers: {
-			"Content-Type": "application/json",
-		},
-        body: JSON.stringify(payload)
-	});
-
-	if (response.ok) {
-		const data = await response.json();
-		dispatch(loadProject(data));
-		return data;
-	} else {
-		return response;
 	}
 };
 
+// TASK THUNKS
 export const deleteTask = (sectionId, taskId) => async (dispatch) => {
     
     const data = {
@@ -153,10 +156,24 @@ export const updateSection =
 		}
 	};
 
+export const toggleCompleteTask = (taskId) => async (dispatch) => {
+	const response = await fetch(`/api/tasks/${taskId}/complete`, {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+
+	if (response.ok) {
+		return response.json();
+	} else {
+		return response;
+	}
+};
+
 export const updateTask =
 	(taskId, task) => async (dispatch) => {
 
-		const response = await fetch(`/api/tasks/${taskId}`, { 
+		const response = await fetch(`/api/tasks/${taskId}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -181,16 +198,61 @@ export const getTask = (taskId) => async (dispatch) => {
 	}
 };
 
-const initialState = { project: " " }; 
-  
-export default function reducer (state = initialState, action) {
+export const addTaskComment = (taskId, comment) => async (dispatch) => {
+    const data = {
+        'commentText': comment
+    }
+	const response = await fetch(`/api/tasks/${taskId}/comment`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data),
+	});
+
+	if (response.ok) {
+		return response;
+	} else {
+		return response;
+	}
+};
+export const updateTaskComment = (commentId, newComment) => async (dispatch) => {
+	const data = {
+		'newComment': newComment,
+	};
+	const response = await fetch(`/api/comments/${commentId}`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data),
+	});
+
+	if (response.ok) {
+		return response;
+	} else {
+		return response;
+	}
+};
+export const deleteComment =
+	(commentId) => async (dispatch) => {
+		const response = await fetch(`/api/comments/${commentId}/delete`);
+
+		if (response.ok) {
+			return response;
+		} else {
+			return response;
+		}
+	};
+
+export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case LOAD_PROJECT:
-			return action.payload; 
+			return action.payload;
 		case UPDATE_PROJECT_SECTION:
 			const sectionId = action.payload.id;
 			state[sectionId] = action.payload;
-			const newState = { ...state }; 
+			const newState = { ...state };
 			return newState;
 		default:
 			return state;

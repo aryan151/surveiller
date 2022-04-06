@@ -15,23 +15,29 @@ function User() {
       setUser(user);
     })();
   }, [userId]);
-
   if (!user) {
     return null;
   }
-
   return (
-    <ul>
-      <li>
-        <strong>User Id</strong> {userId}
-      </li>
-      <li>
-        <strong>Username</strong> {user.username}
-      </li>
-      <li>
-        <strong>Email</strong> {user.email}
-      </li>
-    </ul>
-  );
+		<ul>
+			<li>
+				<strong>User Id</strong> {userId}
+			</li>
+			<li>
+				<strong>Username</strong> {user.username}
+			</li>
+			<li>
+				<strong>Email</strong> {user.email}
+			</li>
+			<li>
+				<strong>Projects</strong>
+        <ul>
+        {user.projects ? Object.keys(user.projects).map((key,i) => (
+          <li>{user.projects[key].project_title}</li>
+        )):null}
+        </ul>
+			</li>
+		</ul>
+	);
 }
 export default User;

@@ -1,12 +1,17 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
-import project from "./project" 
-import sidebar from "./sidebar"
+import project from "./project"
+import priorities from "./priorities"
+import subtasksReducer from './subtask';
+import themeReducer from './theme'; 
+
 const rootReducer = combineReducers({
   session,
   project,
-  sidebar 
+  priorities,
+  subtasks: subtasksReducer,
+  theme: themeReducer,
 });
 
 

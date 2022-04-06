@@ -1,5 +1,5 @@
 .modal {
-    position: fixed; 
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -31,7 +31,8 @@
     border-bottom: 1px solid #ECEAE9;
     padding: 20px;
 }
-
+.modal-content{
+}
 .modal-content input{
     width: 100%;
     height: 30px;
@@ -55,7 +56,7 @@
     width: 60px;
     font-size: 14px;
     color: white;
-    background-color: #796EFF;
+    background-color: red;
     border-radius: 5px;
     border:none;
     height: 36px;
@@ -71,20 +72,20 @@
 }
 
 #modal-button:hover{
-    background-color: #635ac7;
+    background-color: black;
 }
  #modal-button-delete{
     width: 60px;
     font-size: 14px;
     color: black;
-    background-color: #008080;
+    background-color: #F06A6A;
     border-radius: 5px;
     border:none;
     height: 36px;
     cursor: pointer;
  }
 #modal-button-delete:hover{
-    background-color: #008080;
+    background-color: #DF6064;
 }
  #modal-button-cancel{
     width: 60px;
@@ -101,4 +102,4 @@
  #modal-button-cancel:hover{
     background-color: #F9F8F8;
     border-color: #AEABAC;
-}  
+}

@@ -1,60 +1,75 @@
-from app.models import db, User, Project, Project2, Project3, Project4 
+from app.models import db, User, Project
 from datetime import date
-today = date.today() 
+today = date.today()
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        name='Max Waldo', email='demo@aa.io', password='password')
+        full_name='Devin Smith', email='demo@aa.io', password='password')
     marnie = User(
-        name='Devin Cela', email='marnie@aa.io', password='password')
+        full_name='Mike Tran', email='marnie@aa.io', password='password')
     bobbie = User(
-        name='Charlie Quin', email='bobbie@aa.io', password='password') 
+        full_name='Ben Houser', email='bobbie@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
 
-
     project1 = Project(
-        title='Main Store',
+        title='Site A Renovations',
         description='This is a test description',
         owner_id=1,
         created_at=today,
         updated_at=today)
 
     project2 = Project(
-        title='Repair Project 1',
-        description='This is another test',
+        title='Quaterly Showcase',
+        description='This is a test description',
         owner_id=1,
         created_at=today,
         updated_at=today)
 
-    project3 = Project2( 
+    #Inventory 
+    project3 = Project(
+        title='Inventory',
+        description='This is a test description',
         owner_id=1,
+        type = 1,
         created_at=today,
         updated_at=today)
 
-    project4 = Project3( 
+    #Workers
+    project4 = Project(
+        title='Employees', 
+        description='This is a test description',
         owner_id=1,
+        type = 2,
         created_at=today,
         updated_at=today)
-
-    project5 = Project4( 
+    
+    #To DO 
+    project5 = Project(
+        title='To Do',
+        description='This is a test description', 
         owner_id=1,
+        type = 3, 
         created_at=today,
-        updated_at=today)
-
+        updated_at=today) 
 
     db.session.add(project1)
     db.session.add(project2)
     db.session.add(project3)
-    db.session.add(project4)
+    db.session.add(project4) 
     db.session.add(project5)
 
     project1.project_members.append(demo)
     project1.project_members.append(marnie)
-    project2.project_members.append(demo) 
+    project2.project_members.append(demo)
+
+    project3.project_members.append(demo)
+    project4.project_members.append(demo)  
+    project5.project_members.append(demo)
+
     db.session.commit()
 
 
@@ -64,6 +79,6 @@ def seed_users():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_users():
-    db.session.execute('TRUNCATE projects RESTART IDENTITY CASCADE;') 
+    db.session.execute('TRUNCATE projects RESTART IDENTITY CASCADE;')
     db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
     db.session.commit()

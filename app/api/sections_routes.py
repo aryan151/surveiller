@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from app.models import User, db, Project, Section, Task
 from operator import itemgetter
 
-sections_routes = Blueprint('sections', __name__) 
+sections_routes = Blueprint('sections', __name__)
 
 
 @sections_routes.route('/<int:id>', methods=['POST'])

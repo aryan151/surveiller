@@ -1,5 +1,33 @@
-
-.asanawrapper{
+/* TODO Add site wide styles */
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('./font/Montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+* {
+    box-sizing: border-box;
+    margin:0;
+    
+}
+body{
+    font-family: 'Montserrat-Regular', sans-serif;
+    margin: 0;
+    background-size: cover;
+    background-image: url('./images/ZSHOME.jpeg');
+    transition: background-image 200ms ease-in-out;
+}
+.zs-main-layer{
     display: flex;
     height: 100vh;
+}
+
+.zs-root-page{
+    display: flex;
+    flex: 1;
+    height: 100%;
+    flex-direction: column;
+    min-width: 920px;
+    overflow: scroll;
+    /* background-color: #c6c6c6; */
+    padding-bottom: none;
+   
 }

@@ -1,22 +1,14 @@
+from ast import Sub
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import load_only
-from app.models import User, db, Project, Section, Task
+from app.models import User, db, Project, Section, Task, SubTask
 from operator import itemgetter
 from datetime import datetime
 
 today = datetime.today();
 
 projects_routes = Blueprint('projects', __name__)
-  
-@projects_routes.route('/all')
-@login_required
-def getAllProjects(id): 
-    projects = Project.query.all()  
-
-    return {'projects': [project.to_dict() for project in projects]}   
-
-
 
 
 @projects_routes.route('/<int:id>')
@@ -89,7 +81,7 @@ def editProject():
             db.session.commit()
             return project.to_dict()
         except AssertionError as message:
-       
+            print(str(message))
             return jsonify({"error": str(message)}), 400
 
 
@@ -101,3 +93,27 @@ def deleteProject(id):
     db.session.commit()
     
     return {'Message':'Successfully deleted'}
+
+
+@projects_routes.route('/tasks/<int:subtask_id>/', methods=['DELETE', 'PATCH'])
+def delete_update_subtask(subtask_id):
+    body = request.json
+    task = SubTask.query.get(subtask_id)
+    if request.method == 'PATCH':
+        task.completed = body['completed']
+        db.session.commit() 
+        return 'ok'
+    else:
+        db.session.delete(task)
+        db.session.commit()
+        return 'ok'
+
+
+@projects_routes.route('/<int:task_id>/subtasks/', methods=['POST'])
+def add_subtask(task_id):
+    body = request.json
+    task = SubTask(task_id=task_id, description=body['description'], completed=False)
+    db.session.add(task)
+    db.session.commit()
+    return task.to_dict()
+ 
